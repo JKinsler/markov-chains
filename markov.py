@@ -44,6 +44,14 @@ def make_chains(text_string):
     """
 
     chains = {}
+    text_list = text_string.split()
+    index = 0
+
+    while index < (len(text_list) - 2):
+        if (text_list[index], text_list[index+1]) in chains:
+            chains[(text_list[index], text_list[index + 1])] = chains[(text_list[index], text_list[index + 1])].append(text_list[index + 2])
+        else:
+            chains[(text_list[index], text_list[index + 1])] = [text_list[index + 2]]
 
     # your code goes here
 
@@ -64,11 +72,11 @@ input_path = "green-eggs.txt"
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
-print(input_text)
-print(type(input_text))
+#print(input_text)
+#print(type(input_text))
 
 # Get a Markov chain
-# chains = make_chains(input_text)
+chains = make_chains(input_text)
 
 # Produce random text
 # random_text = make_text(chains)
