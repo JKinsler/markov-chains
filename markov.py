@@ -38,21 +38,28 @@ def make_chains(text_string):
 
         >>> chains[('hi', 'there')]
         ['mary', 'juanita']
-        
+    
         >>> chains[('there','juanita')]
         [None]
     """
 
     chains = {}
     text_list = text_string.split()
+
     index = 0
-
     while index < (len(text_list) - 2):
-        if (text_list[index], text_list[index+1]) in chains:
-            chains[(text_list[index], text_list[index + 1])] = chains[(text_list[index], text_list[index + 1])].append(text_list[index + 2])
-        else:
-            chains[(text_list[index], text_list[index + 1])] = [text_list[index + 2]]
 
+        # create a variable to hold the current chain key
+        chain_key = (text_list[index], text_list[index+1])
+        # create a variable to hold the dictionary value
+        new_value = text_list[index+2]
+
+        if chain_key not in chains:
+            chains[chain_key] = []
+
+        chains[chain_key].append(new_value)
+
+        index = index + 1
     # your code goes here
 
     return chains
@@ -77,6 +84,7 @@ input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
 chains = make_chains(input_text)
+print(chains)
 
 # Produce random text
 # random_text = make_text(chains)
