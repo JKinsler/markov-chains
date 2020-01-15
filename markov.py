@@ -2,6 +2,10 @@
 
 from random import choice
 
+import sys
+
+
+
 
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
@@ -65,18 +69,20 @@ def make_chains(text_string):
     return chains
 
 
+def get_new_word(key, chains):
+    """Returns a new word as a random choice from the key's values. """
+    values = chains[key]
+    return choice(values)
+
+
+def get_new_key(key, word):
+    """Returns a new key based on the previous key and word. """
+    return (key[1], word)
+
+
 def make_text(chains):
     """Return text from chains."""
     key = choice(list(chains.keys()))
-
-    def get_new_word(key, chains):
-        """Returns a new word as a random choice from the key's values. """
-        values = chains[key]
-        return choice(values)
-
-    def get_new_key(key, word):
-        """Returns a new key based on the previous key and word. """
-        return (key[1], word)
 
     words = []
 
@@ -88,10 +94,11 @@ def make_text(chains):
     return " ".join(words)
 
 
-input_path = "green-eggs.txt"
+#input_path = "gettysburg.txt"
+filename = sys.argv[1]   # first real argument
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(input_path)
+input_text = open_and_read_file(filename)
 # print(input_text)
 # print(type(input_text))
 
